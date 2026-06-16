@@ -42,7 +42,5 @@ A pirate-themed chatbot built with:
 
 ## Screenshot
 
-![Screenshot]
-
-![alt text](<doc/Screenshot 2026-06-16 132642.png>)
-![alt text](<doc/Screenshot 2026-06-16 132533.png>)
+![Captain Blackbeard AI](<doc/Screenshot 2026-06-16 132642.png>)
+![Captain Blackbeard AI](<doc/Screenshot 2026-06-16 132533.png>)
