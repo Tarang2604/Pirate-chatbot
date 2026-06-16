@@ -12,6 +12,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.logo{
+  box-shadow: 0 0 12px rgba(255,215,0,.15);
+}
 
 a {
   font-weight: 500;

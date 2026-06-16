@@ -198,78 +198,153 @@ main > div::-webkit-scrollbar-thumb:hover {
 
 
 :root {
-  --gold: #fbbf24;
-  --gold-dark: #d97706;
-  --bg-dark: #020617;
-  --card: rgba(15, 23, 42, 0.9);
-  --text: #f8fafc;
+  --gold: #ffd700;
+  --gold-light: #ffed4e;
+  --bg-dark: #0f2027;
+  --bg-mid: #203a43;
+  --bg-light: #2c5364;
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 body {
+  margin: 0;
   min-height: 100vh;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  font-family: Inter, Segoe UI, sans-serif;
+  font-family: "Segoe UI", sans-serif;
 
   background:
     radial-gradient(circle at top left, #1e3a8a 0%, transparent 35%),
     radial-gradient(circle at bottom right, #92400e 0%, transparent 35%),
-    linear-gradient(135deg, #020617 0%, #0f172a 100%);
+    linear-gradient(
+      135deg,
+      var(--bg-dark) 0%,
+      var(--bg-mid) 50%,
+      var(--bg-light) 100%
+    );
+
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(255, 215, 0, 0.08),
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(30, 144, 255, 0.08),
+      transparent 50%
+    );
+
+  animation: floatBg 15s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes floatBg {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(15px, -15px);
+  }
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 main {
-  width: 95%;
-  max-width: 1100px;
+  width: 92%;
+  max-width: 1000px;
   height: 92vh;
 
   display: flex;
   flex-direction: column;
 
-  padding: 24px;
+  padding: 25px;
 
   border-radius: 24px;
 
-  background: var(--card);
+  background: rgba(15, 32, 39, 0.85);
 
   backdrop-filter: blur(20px);
 
-  border: 1px solid rgba(255,255,255,.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
   box-shadow:
-    0 25px 60px rgba(0,0,0,.45);
+    0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
 /* HEADER */
 
-main h1 {
-  text-align: center;
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 
-  font-size: 2.8rem;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2rem;
+
+  background: rgba(255, 215, 0, 0.1);
+
+
+   box-shadow: 0 0 6px rgba(255,215,0,.08);
+}
+
+.header h1 {
+  margin: 0;
 
   color: var(--gold);
 
-  margin-bottom: 20px;
+  font-size: 1.8rem;
 
-  text-shadow:
-    0 0 20px rgba(251,191,36,.3);
+  font-weight: 800;
+}
 
-  border-bottom: 1px solid rgba(255,255,255,.08);
+.header p {
+  margin-top: 6px;
 
-  padding-bottom: 18px;
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 0.95rem;
 }
 
 /* CHAT AREA */
 
-main > div {
+.chat-area {
   flex: 1;
 
   overflow-y: auto;
@@ -279,45 +354,92 @@ main > div {
 
   gap: 14px;
 
-  padding: 20px;
+  padding: 10px;
 }
 
-main > div::-webkit-scrollbar {
+.chat-area::-webkit-scrollbar {
   width: 8px;
 }
 
-main > div::-webkit-scrollbar-thumb {
-  background: rgba(251,191,36,.4);
+.chat-area::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 0, 0.35);
   border-radius: 999px;
 }
 
-/* WELCOME CARD */
+.welcome-card {
+  max-width: 450px;
 
-main > div p:first-child {
-  margin-top: auto;
+  margin: auto;
+
+  text-align: center;
+
+  padding: 24px;
+
+  border-radius: 20px;
+
+  background: rgba(255,255,255,.05);
+
+  border: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(10px);
+  
+
+   transform: translateY(-2px);
+  transition: 0.3s ease;
 }
 
-/* MESSAGE BUBBLES */
+
+/* MESSAGE ROW */
+
+.message-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.message-row.user {
+  justify-content: flex-end;
+}
+
+.message-row.ai {
+  justify-content: flex-start;
+}
+
+/* AVATAR */
+
+.avatar {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  font-size: 1.2rem;
+
+  flex-shrink: 0;
+}
+
+/* MESSAGE */
 
 .message {
+  max-width: 55%;
+
   padding: 14px 18px;
 
   border-radius: 18px;
 
-  line-height: 1.6;
+  line-height: 1.5;
 
-  max-width: 65%;
+  word-break: break-word;
 
-  font-size: 1rem;
-
-  animation: slideIn .25s ease;
-
-  word-wrap: break-word;
+  animation: fadeUp 0.25s ease;
 }
 
 .message.user {
-  align-self: flex-end;
-
   background:
     linear-gradient(
       135deg,
@@ -330,142 +452,21 @@ main > div p:first-child {
   border-bottom-right-radius: 6px;
 
   box-shadow:
-    0 10px 25px rgba(234,88,12,.25);
+    0 8px 20px rgba(234, 88, 12, 0.3);
 }
 
 .message.ai {
-  align-self: flex-start;
-
   background:
-    rgba(255,255,255,.08);
+    rgba(255, 255, 255, 0.08);
 
-  border: 1px solid rgba(255,255,255,.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
   color: white;
 
   border-bottom-left-radius: 6px;
-
-  box-shadow:
-    0 10px 25px rgba(0,0,0,.2);
 }
 
-.message.user::before {
-  content: "🧑 ";
-}
-
-.message.ai::before {
-  content: "🏴‍☠️ ";
-}
-
-/* INPUT AREA */
-
-.vertical {
-  display: flex;
-  flex-direction: row;
-
-  gap: 12px;
-
-  margin-top: 18px;
-}
-
-.vertical input[type="text"] {
-  flex: 1;
-
-  padding: 16px 20px;
-
-  border-radius: 14px;
-
-  border: 1px solid rgba(251,191,36,.3);
-
-  background:
-    rgba(255,255,255,.05);
-
-  color: white;
-
-  font-size: 1rem;
-
-  transition: .25s;
-}
-
-.vertical input[type="text"]:focus {
-  outline: none;
-
-  border-color: var(--gold);
-
-  box-shadow:
-    0 0 0 3px rgba(251,191,36,.15);
-}
-
-.vertical input[type="text"]::placeholder {
-  color: rgba(255,255,255,.5);
-}
-
-.vertical button {
-  width: 160px;
-
-  border: none;
-
-  border-radius: 14px;
-
-  cursor: pointer;
-
-  font-size: 1rem;
-  font-weight: 700;
-
-  color: white;
-
-  background:
-    linear-gradient(
-      135deg,
-      #f59e0b,
-      #ea580c
-    );
-
-  transition: .25s;
-
-  box-shadow:
-    0 10px 25px rgba(234,88,12,.25);
-}
-
-.vertical button:hover:not(:disabled) {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 15px 30px rgba(234,88,12,.4);
-}
-
-.vertical button:disabled {
-  opacity: .6;
-
-  cursor: not-allowed;
-}
-
-.vertical button::before {
-  content: "⚓ ";
-}
-
-/* ERROR BOX */
-
-.error {
-  margin-bottom: 12px;
-
-  padding: 12px;
-
-  border-radius: 12px;
-
-  background:
-    rgba(220,38,38,.15);
-
-  border:
-    1px solid rgba(220,38,38,.4);
-
-  color:
-    #fca5a5;
-}
-
-/* ANIMATION */
-
-@keyframes slideIn {
+@keyframes fadeUp {
   from {
     opacity: 0;
     transform: translateY(8px);
@@ -475,6 +476,83 @@ main > div p:first-child {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* FORM */
+
+.vertical {
+  display: flex;
+  gap: 12px;
+
+  margin-top: 15px;
+}
+
+.vertical input[type="text"] {
+  flex: 1;
+
+  padding: 16px 18px;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(255,255,255,.12);
+
+  background: rgba(255, 255, 255, 0.05);
+
+  color: white;
+
+  font-size: 1rem;
+}
+
+.vertical input[type="text"]:focus {
+  outline: none;
+
+  border-color: var(--gold);
+
+  box-shadow:
+    0 0 0 3px rgba(255, 215, 0, 0.15);
+}
+
+.vertical input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.vertical button {
+  min-width: 140px;
+ 
+  height: 56px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f59e0b,
+      #ea580c
+    );
+
+  color: white;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.vertical button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+
+  box-shadow:
+    0 10px 20px rgba(234, 88, 12, 0.35);
+}
+
+.vertical button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* MOBILE */
@@ -487,7 +565,7 @@ main > div p:first-child {
     border-radius: 0;
   }
 
-  main h1 {
+  .header h1 {
     font-size: 1.8rem;
   }
 
@@ -500,7 +578,7 @@ main > div p:first-child {
   }
 
   .vertical button {
-    width: 100%;
+    min-width: 100%;
     height: 55px;
   }
 }

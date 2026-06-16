@@ -105,7 +105,7 @@ const functionUrl =
   </div>
 </div>
 
-      <div>
+      <div className="chat-area">
         {messages.length === 0 && (
           <div
             style={{
@@ -116,8 +116,11 @@ const functionUrl =
               marginBottom: 'auto',
             }}
           >
-            <p>🏴‍☠️ Welcome to the Pirate ChatBot! 🏴‍☠️</p>
+            <div className="welcome-card">
+              <p>🏴‍☠️ Welcome to the Pirate ChatBot! 🏴‍☠️</p>
             <p>Start a conversation to begin yer adventure on the high seas!</p>
+            </div>
+            
           </div>
         )}
 
